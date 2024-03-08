@@ -6,7 +6,7 @@ services:
     ports:
       - "443:443"
     volumes:
-      - ./nginx:/etc/nginx/conf.d
+      - ./nginx:/etc/nginx/conf
       - web-root:/var/www/html
     depends_on:
       - wordpress
