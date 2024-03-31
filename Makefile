@@ -1,22 +1,30 @@
-DOCKER_COMPOSE = docker compose
+# Variables
+COMPOSE_FILE := srcs/docker-compose.yml
+ENV_FILE := srcs/.env
 
-all: build up
-
-build:
-	$(DOCKER_COMPOSE) build
+# Targets
+all: up
 
 up:
-	$(DOCKER_COMPOSE) up -d
+	docker compose -f $(COMPOSE_FILE) --env-file $(ENV_FILE) up -d --build
 
 down:
-	$(DOCKER_COMPOSE) down
+	docker compose -f $(COMPOSE_FILE) down
+
+start:
+	docker compose -f $(COMPOSE_FILE) start
+
+stop:
+	docker compose -f $(COMPOSE_FILE) stop
+
+restart: stop start
 
 clean:
-	$(DOCKER_COMPOSE) down --rmi all --volumes
+	docker compose -f $(COMPOSE_FILE) down -v --rmi all
 
 fclean: clean
-	docker system prune -a --force --volumes
+	docker system prune -f
 
 re: fclean all
 
-.PHONY: all build up down clean fclean re
+.PHONY: all up down start stop restart clean fclean re
