@@ -1,6 +1,6 @@
 # Variables
-COMPOSE_FILE := srcs/docker-compose.yml
-ENV_FILE := srcs/.env
+COMPOSE_FILE := docker-compose.yml
+ENV_FILE := .env
 
 # Targets
 all: up
