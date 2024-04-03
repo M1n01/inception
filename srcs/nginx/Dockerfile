@@ -6,7 +6,7 @@ RUN mkdir /etc/nginx/ssl
 RUN openssl req -newkey rsa:4096 -x509 -sha256 -days 365 -nodes \
 	-out /etc/nginx/ssl/nginx.crt \
 	-keyout /etc/nginx/ssl/nginx.key \
-	-subj "/C=JP/ST=Tokyo/L=Minato/O=42Tokyo/OU=Inception/CN=login.42.fr"
+	-subj "/C=JP/ST=Tokyo/L=Minato/O=42Tokyo/OU=Inception/CN=minabe.42.fr"
 
 COPY conf/nginx.conf /etc/nginx/nginx.conf
 
