@@ -9,18 +9,19 @@ up:
 	docker compose -f $(COMPOSE_FILE) --env-file $(ENV_FILE) up -d --build
 
 down:
-	docker compose -f $(COMPOSE_FILE) down
+	docker compose -f $(COMPOSE_FILE) --env-file $(ENV_FILE) down -v
 
 start:
-	docker compose -f $(COMPOSE_FILE) start
+	docker compose -f $(COMPOSE_FILE) --env-file $(ENV_FILE) start
 
 stop:
-	docker compose -f $(COMPOSE_FILE) stop
+	docker compose -f $(COMPOSE_FILE) --env-file $(ENV_FILE) stop
 
-restart: stop start
+restart:
+	docker compose -f $(COMPOSE_FILE) --env-file $(ENV_FILE) restart
 
 clean:
-	docker compose -f $(COMPOSE_FILE) down -v --rmi all
+	docker compose -f $(COMPOSE_FILE) --env-file $(ENV_FILE) down -v --rmi all
 
 fclean: clean
 	docker system prune -f
