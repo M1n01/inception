@@ -4,6 +4,8 @@ RUN set -x \
 	&& apt-get update \
 	&& apt-get install -y --no-install-recommends nginx curl openssl \
 	&& rm -rf /var/lib/apt/lists/* \
+	&& mkdir -p /var/log/nginx \
+	&& chmod -R 755 /var/log/nginx \
 	&& ln -sf /dev/stdout /var/log/nginx/access.log \
 	&& ln -sf /dev/stderr /var/log/nginx/error.log
 

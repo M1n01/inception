@@ -27,8 +27,6 @@ services:
     build:
       context: ./wordpress
       dockerfile: Dockerfile
-    ports:
-      - "9000:9000"
     environment:
       WORDPRESS_DB_NAME: wordpress
       WORDPRESS_DB_USER: ${MYSQL_USER}
