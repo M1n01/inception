@@ -1,25 +1,27 @@
-FROM alpine:latest
+FROM debian:bullseye-slim
 
-RUN apk update && apk add --no-cache \
-    php81 php81-fpm php81-opcache php81-mysqli php81-session \
-    php81-gd php81-iconv php81-json php81-curl \
-    php81-xml php81-phar php81-zip php81-ctype php81-pdo php81-pdo_mysql \
-    php81-mbstring php81-soap php81-posix php81-ldap php81-dom
+RUN set -x \
+	&& apt-get update && apt-get install -y --no-install-recommends \
+		php-fpm \
+		php-mysqli \
+		mariadb-client \
+		curl \
+		ca-certificates \
+	&& rm -rf /var/lib/apt/lists/* \
+	&& mkdir /run/php
 
-RUN mkdir /run/php
+ENV WP_PATH=/var/www/html
 
-RUN wget https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar \
-    && chmod +x wp-cli.phar \
-    && mv wp-cli.phar /usr/local/bin/wp
+RUN set -x \
+	&& curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar \
+	&& chmod +x wp-cli.phar \
+	&& mv wp-cli.phar /usr/local/bin/wp \
+	&& mkdir -p ${WP_PATH} \
+	&& wp core download --allow-root --path=${WP_PATH}
 
-RUN mkdir -p /var/www/html
-
-COPY conf/wp-config.php /var/www/html/
-COPY conf/www.conf /etc/php81/php-fpm.d/www.conf
-
+COPY conf/wp-config.php ${WP_PATH}/wp-config.php
+COPY conf/www.conf /etc/php/7.4/fpm/pool.d/www.conf
 COPY tools/start.sh /usr/local/bin/start.sh
 RUN chmod +x /usr/local/bin/start.sh
-
-EXPOSE 9000
 
 CMD ["/usr/local/bin/start.sh"]
