@@ -8,8 +8,8 @@ services:
     ports:
       - "443:443"
     volumes:
-      - ./nginx/conf:/etc/nginx/conf
-      - ./wordpress:/var/www/html
+      - nginx_conf:/etc/nginx/conf
+      - wordpress:/var/www/html
     restart: on-failure
     depends_on:
       - wordpress
@@ -26,7 +26,7 @@ services:
       WORDPRESS_DB_PASSWORD: ${MYSQL_PASSWORD}
       WORDPRESS_DB_NAME: wordpress
     volumes:
-      - ./wordpress:/var/www/html
+      - wordpress:/var/www/html
     restart: on-failure
     depends_on:
       - mariadb
@@ -39,14 +39,19 @@ services:
       dockerfile: Dockerfile
     environment:
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
-      MYSQL_DATABASE: wordpress
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
       MYSQL_USER: ${MYSQL_USER}
       MYSQL_PASSWORD: ${MYSQL_PASSWORD}
     volumes:
-      - ./mariadb:/var/lib/mysql
+      - mariadb:/var/lib/mysql
     restart: on-failure
     networks:
       - webnet
+
+volumes:
+  nginx_conf:
+  wordpress:
+  mariadb:
 
 networks:
   webnet:

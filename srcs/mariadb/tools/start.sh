@@ -1,13 +1,13 @@
-#!/bin/sh
+#!/bin/bash
 
-if [ ! -d "/var/lib/mysql/wordpress" ]; then
+if [ ! -d "/var/lib/mysql/$MYSQL_DATABASE" ]; then
     mysql_install_db --user=mysql --datadir=/var/lib/mysql
     mysqld --user=mysql --bootstrap <<EOF
-CREATE DATABASE IF NOT EXISTS wordpress;
-CREATE USER IF NOT EXISTS '$MYSQL_USER'@'%' IDENTIFIED BY '$MYSQL_PASSWORD';
-GRANT ALL PRIVILEGES ON wordpress.* TO '$MYSQL_USER'@'%';
+CREATE DATABASE IF NOT EXISTS $MYSQL_DATABASE;
+CREATE USER IF NOT EXISTS '$MYSQL_USER'@'%' IDENTIFIED BY $MYSQL_PASSWORD;
+GRANT ALL PRIVILEGES ON $MYSQL_DATABASE.* TO '$MYSQL_USER'@'%';
 FLUSH PRIVILEGES;
 EOF
 fi
 
-exec mysqld --user=mysql
+exec mysqld --user=mysql --console

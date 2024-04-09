@@ -1,16 +1,22 @@
-FROM alpine:latest
+FROM debian:bullseye-slim
 
-RUN apk update && apk add --no-cache mariadb mariadb-client
+RUN set -x \
+	&& apt-get update \
+	&& apt-get install -y --no-install-recommends mariadb-server mariadb-client \
+	&& rm -rf /var/lib/apt/lists/*
 
-RUN mkdir /run/mysqld && \
-    chmod 777 /run/mysqld && \
-    { echo '[mysqld]'; \
-      echo 'skip-host-cache'; \
-      echo 'skip-name-resolve'; \
-      echo 'bind-address=0.0.0.0'; \
-    } > /etc/my.cnf
+RUN set -x \
+	&& mkdir /run/mysqld \
+	&& chown mysql:mysql /run/mysqld \
+	&& mkdir /docker-entrypoint-initdb.d \
+	&& ln -sf /dev/stderr /var/log/mysql/error.log
 
-EXPOSE 3306
+ENV MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD} \
+    MYSQL_DATABASE=${MYSQL_DATABASE} \
+    MYSQL_USER=${MYSQL_USER}} \
+    MYSQL_PASSWORD=${MYSQL_PASSWORD}
+
+COPY ./conf/my.cnf /etc/mysql/mariadb.conf.d/50-server.cnf
 
 COPY tools/start.sh /usr/local/bin/start.sh
 RUN chmod +x /usr/local/bin/start.sh
