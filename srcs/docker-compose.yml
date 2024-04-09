@@ -7,6 +7,13 @@ services:
       dockerfile: Dockerfile
     ports:
       - "443:443"
+    environment:
+      CERT_COUNTRY: ${CERT_COUNTRY}
+      CERT_STATE: ${CERT_STATE}
+      CERT_LOCATION: ${CERT_LOCATION}
+      CERT_ORG: ${CERT_ORG}
+      CERT_ORG_UNIT: ${CERT_ORG_UNIT}
+      DOMAIN_NAME: ${DOMAIN_NAME}
     volumes:
       - nginx_conf:/etc/nginx/conf
       - wordpress:/var/www/html
@@ -20,6 +27,8 @@ services:
     build:
       context: ./wordpress
       dockerfile: Dockerfile
+    ports:
+      - "9000:9000"
     environment:
       WORDPRESS_DB_NAME: wordpress
       WORDPRESS_DB_USER: ${MYSQL_USER}
