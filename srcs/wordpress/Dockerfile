@@ -19,9 +19,9 @@ RUN set -x \
 	&& mkdir -p ${WP_PATH} \
 	&& wp core download --allow-root --path=${WP_PATH}
 
-COPY conf/wp-config.php ${WP_PATH}/wp-config.php
-COPY conf/www.conf /etc/php/7.4/fpm/pool.d/www.conf
-COPY tools/start.sh /usr/local/bin/start.sh
+COPY ./conf/wp-config.php ${WP_PATH}/wp-config.php
+COPY ./conf/www.conf /etc/php/7.4/fpm/pool.d/www.conf
+COPY ./tools/start.sh /usr/local/bin/start.sh
 RUN chmod +x /usr/local/bin/start.sh
 
 CMD ["/usr/local/bin/start.sh"]
