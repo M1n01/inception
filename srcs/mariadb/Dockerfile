@@ -13,7 +13,7 @@ RUN set -x \
 
 ENV MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD} \
     MYSQL_DATABASE=${MYSQL_DATABASE} \
-    MYSQL_USER=${MYSQL_USER}} \
+    MYSQL_USER=${MYSQL_USER} \
     MYSQL_PASSWORD=${MYSQL_PASSWORD}
 
 COPY ./conf/my.cnf /etc/mysql/mariadb.conf.d/50-server.cnf
