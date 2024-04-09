@@ -10,9 +10,9 @@ services:
     volumes:
       - ./nginx/conf:/etc/nginx/conf
       - ./wordpress:/var/www/html
+    restart: on-failure
     depends_on:
       - wordpress
-      - mariadb
     networks:
       - webnet
 
@@ -27,6 +27,9 @@ services:
       WORDPRESS_DB_NAME: wordpress
     volumes:
       - ./wordpress:/var/www/html
+    restart: on-failure
+    depends_on:
+      - mariadb
     networks:
       - webnet
 
@@ -41,6 +44,7 @@ services:
       MYSQL_PASSWORD: ${MYSQL_PASSWORD}
     volumes:
       - ./mariadb:/var/lib/mysql
+    restart: on-failure
     networks:
       - webnet
 
