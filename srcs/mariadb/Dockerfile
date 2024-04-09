@@ -18,7 +18,7 @@ ENV MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD} \
 
 COPY ./conf/my.cnf /etc/mysql/mariadb.conf.d/50-server.cnf
 
-COPY tools/start.sh /usr/local/bin/start.sh
+COPY ./tools/start.sh /usr/local/bin/start.sh
 RUN chmod +x /usr/local/bin/start.sh
 
 CMD ["/usr/local/bin/start.sh"]
