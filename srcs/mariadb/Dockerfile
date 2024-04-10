@@ -9,6 +9,9 @@ RUN set -x \
 	&& mkdir /run/mysqld \
 	&& chown mysql:mysql /run/mysqld \
 	&& mkdir /docker-entrypoint-initdb.d \
+	&& mkdir -p /var/log/mysql \
+	&& chmod -R 755 /var/log/mysql \
+	&& chown mysql:mysql /var/log/mysql \
 	&& ln -sf /dev/stderr /var/log/mysql/error.log
 
 ENV MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD} \
