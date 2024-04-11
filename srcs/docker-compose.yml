@@ -1,48 +1,46 @@
 version: '3'
-
 services:
   nginx:
-    build:
-      context: ./nginx
-      dockerfile: Dockerfile
+    build: ./nginx
     ports:
       - "443:443"
-    volumes:
-      - ./nginx/conf:/etc/nginx/conf
-      - ./wordpress:/var/www/html
     depends_on:
       - wordpress
-      - mariadb
+    volumes:
+      - nginx_conf:/etc/nginx/conf
+      - ./nginx/ssl:/etc/nginx/ssl
+    restart: on-failure
     networks:
-      - webnet
+      - inception
+    env_file:
+      - .env
 
   wordpress:
-    build:
-      context: ./wordpress
-      dockerfile: Dockerfile
-    environment:
-      WORDPRESS_DB_HOST: mariadb
-      WORDPRESS_DB_USER: ${MYSQL_USER}
-      WORDPRESS_DB_PASSWORD: ${MYSQL_PASSWORD}
-      WORDPRESS_DB_NAME: wordpress
+    build: ./wordpress
     volumes:
-      - ./wordpress:/var/www/html
+      - wp_data:/var/www/html
+    restart: on-failure
+    depends_on:
+      - mariadb
     networks:
-      - webnet
+      - inception
+    env_file:
+      - .env
 
   mariadb:
-    build:
-      context: ./mariadb
-      dockerfile: Dockerfile
-    environment:
-      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
-      MYSQL_DATABASE: wordpress
-      MYSQL_USER: ${MYSQL_USER}
-      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+    build: ./mariadb
     volumes:
-      - ./mariadb:/var/lib/mysql
+      - db_data:/var/lib/mysql
+    restart: on-failure
     networks:
-      - webnet
+      - inception
+    env_file:
+      - .env
+
+volumes:
+  wp_data:
+  db_data:
+  nginx_conf:
 
 networks:
-  webnet:
+  inception:
