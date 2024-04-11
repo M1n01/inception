@@ -1,25 +1,25 @@
 version: '3'
 services:
   nginx:
-    build: ./nginx
+    build: ./requirements/nginx
     ports:
       - "443:443"
     depends_on:
       - wordpress
     volumes:
       - nginx_conf:/etc/nginx/conf
-      - ./nginx/ssl:/etc/nginx/ssl
-    restart: on-failure
+      - ./requirements/nginx/ssl:/etc/nginx/ssl
+    restart: always
     networks:
       - inception
     env_file:
       - .env
 
   wordpress:
-    build: ./wordpress
+    build: ./requirements/wordpress
     volumes:
       - wp_data:/var/www/html
-    restart: on-failure
+    restart: always
     depends_on:
       - mariadb
     networks:
@@ -28,10 +28,10 @@ services:
       - .env
 
   mariadb:
-    build: ./mariadb
+    build: ./requirements/mariadb
     volumes:
       - db_data:/var/lib/mysql
-    restart: on-failure
+    restart: always
     networks:
       - inception
     env_file:
