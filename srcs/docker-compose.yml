@@ -24,8 +24,11 @@ services:
       - mariadb
     networks:
       - inception
-    env_file:
-      - .env
+    environment:
+      WORDPRESS_DB_HOST: wordpress
+      WORDPRESS_DB_USER: wordpress
+      WORDPRESS_DB_PASSWORD: 42tokyo
+      WORDPRESS_DB_NAME: mariadb
 
   mariadb:
     build: ./requirements/mariadb
