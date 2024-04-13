@@ -15,7 +15,7 @@ services:
       - ORGANIZATION
       - CERT_NAME
       - DOMAIN_NAME
-      - RSA_KEY_NUMBITS
+      - RSA_KEY_SIZE
     networks:
       - inception-network
 
