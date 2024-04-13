@@ -24,5 +24,5 @@ RUN chmod +x /usr/local/bin/docker-entrypoint.sh
 EXPOSE 9000
 
 WORKDIR /var/www/html/wordpress
-COPY ./tools/entrypoint.sh /usr/local/bin/
-ENTRYPOINT ["docker-entrypoint.sh"]
+COPY ./tools/docker-entrypoint.sh /usr/local/bin/
+ENTRYPOINT ["/usr/local/bin/docker-entrypoint.sh"]
