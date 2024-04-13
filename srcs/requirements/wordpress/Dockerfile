@@ -12,7 +12,7 @@ COPY ./conf/www.conf /etc/php/7.4/fpm/pool.d/www.conf
 RUN mkdir /run/php
 
 COPY ./tools/docker-entrypoint.sh /usr/local/bin/
-RUN chmod +x /usr/local/bin/entrypoint.sh
+RUN chmod +x /usr/local/bin/docker-entrypoint.sh
 
 EXPOSE 9000
 
