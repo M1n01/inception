@@ -74,7 +74,7 @@ volumes:
     driver: local
     driver_opts:
       type: none
-      device: ${DB_VOLUME_DIR}
+      device: ${MYSQL_VOLUME_PATH}
       o: bind
 
 networks:
