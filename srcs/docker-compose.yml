@@ -50,11 +50,11 @@ services:
 volumes:
   wp_data:
   db_data:
-    driver: local
-    driver_opts:
-      type: none
-      device: /home/minabe/data/mysql
-      o: bind
+    # driver: local
+    # driver_opts:
+    #   type: none
+    #   device: /home/minabe/data/mysql
+    #   o: bind
   nginx_conf:
 
 networks:
