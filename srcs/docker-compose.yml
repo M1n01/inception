@@ -1,81 +1,31 @@
+version: '3'
 services:
   nginx:
     build: ./requirements/nginx
-    image: nginx
     ports:
-      - "443:443"
-    volumes:
-      - wp_data:/var/www/html
+      - 8080:80
     depends_on:
       - wordpress
-    restart: always
-    environment:
-      - COUNTRY
-      - STATE
-      - ORGANIZATION
-      - CERT_NAME
-      - DOMAIN_NAME
-      - RSA_KEY_SIZE
-    networks:
-      - inception-network
-
+    volumes:
+      - ./src:/var/www/html
+      - ./logs/nginx:/var/log/nginx
   wordpress:
     build: ./requirements/wordpress
-    image: wordpress
-    ports:
-      - ":9000"
-    volumes:
-      - wp_data:/var/www/html
-    restart: always
     depends_on:
       - mariadb
-    networks:
-      - inception-network
-    environment:
-      DB_NAME: ${MYSQL_DATABASE}
-      DB_USER: ${MYSQL_USER}
-      DB_PASSWORD: ${MYSQL_PASSWORD}
-      DB_HOST: mariadb:3306
-      WP_DATA_PATH: /var/www/html/wordpress
-      WP_URL: ${WP_URL}
-      WP_TITLE: ${WP_TITLE}
-      WP_ADMIN_USER: ${WP_ADMIN_USER}
-      WP_ADMIN_PASSWORD: ${WP_ADMIN_PASSWORD}
-      WP_ADMIN_EMAIL: ${WP_ADMIN_EMAIL}
-      WP_EDITOR_USER: ${WP_EDITOR_USER}
-      WP_EDITOR_PASSWORD: ${WP_EDITOR_PASSWORD}
-      WP_EDITOR_EMAIL: ${WP_EDITOR_EMAIL}
-
+    volumes:
+      - ./src:/var/www/html
+      - ./logs/wordpress/php:/var/log/php
   mariadb:
     build: ./requirements/mariadb
-    image: mariadb
     ports:
-      - ":3306"
-    volumes:
-      - db_data:/var/lib/mysql
+      - '3306:3306'
     restart: always
     environment:
-      MYSQL_DATA_PATH: /var/lib/mysql
-      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
-      MYSQL_DATABASE: ${MYSQL_DATABASE}
-      MYSQL_USER: ${MYSQL_USER}
-      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
-    networks:
-      - inception-network
-
-volumes:
-  wp_data:
-    driver: local
-    driver_opts:
-      type: none
-      device: ${WP_VOLUME_PATH}
-      o: bind
-  db_data:
-    driver: local
-    driver_opts:
-      type: none
-      device: ${MYSQL_VOLUME_PATH}
-      o: bind
-
-networks:
-  inception-network:
+      MYSQL_ROOT_PASSWORD: example
+      MYSQL_DATABASE: wordpress
+      MYSQL_USER: wordpress
+      MYSQL_PASSWORD: example
+    volumes:
+      - ./resources/mariadb:/var/lib/mysql
+      - ./logs/mariadb:/var/log/mysql
