@@ -18,6 +18,8 @@ RUN mkdir /run/php
 COPY ./tools/docker-entrypoint.sh /usr/local/bin/
 RUN chmod +x /usr/local/bin/docker-entrypoint.sh
 
+COPY ./conf/wp-config.php $WP_PATH/wp-config.php
+
 EXPOSE 9000
 
 WORKDIR /var/www/html/wordpress
