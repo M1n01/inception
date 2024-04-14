@@ -1,24 +1,37 @@
 #!/bin/bash
 
-wp config create \
-	--path=$WP_DATA_PATH \
-	--dbname=$DB_NAME \
-	--dbuser=$DB_USER \
-	--dbpass=$DB_PASSWORD \
-	--dbhost=$DB_HOST
-wp core install \
-	--path=$WP_DATA_PATH \
-	--url=$WP_URL \
-	--title="$WP_TITLE" \
-	--admin_user=$WP_ADMIN_USER \
-	--admin_password=$WP_ADMIN_PASSWORD \
-	--admin_email=$WP_ADMIN_EMAIL \
-	--skip-email
-wp user create \
-	$WP_EDITOR_USER \
-	$WP_EDITOR_EMAIL \
-	--path=$WP_DATA_PATH \
-	--role=author \
-	--user_pass=$WP_EDITOR_PASSWORD
+if ! wp core is-installed --allow-root --path=/var/www/html ; then
+	wp core download --allow-root --path=/var/www/html --locale=ja
+ 
+	sleep 5
+	wp config create \
+		--allow-root \
+		--path=/var/www/html \
+		--locale=ja \
+		--dbname="$MYSQL_DATABASE" \
+		--dbuser="$MYSQL_USER" \
+		--dbpass="$MYSQL_PASSWORD" \
+		--dbhost="$MYSQL_HOST"
 
-exec php-fpm7.4 --nodaemonize
+	sleep 3
+	wp core install \
+		--allow-root \
+		--path=/var/www/html \
+		--locale=ja \
+		--url="https://$DOMAIN_NAME" \
+		--title="$WP_TITLE" \
+		--admin_user="$WP_ADMIN_USER" \
+		--admin_password="$WP_ADMIN_PASSWORD" \
+		--admin_email="$WP_ADMIN_EMAIL"
+
+	wp user create \
+		--allow-root \
+		--path=/var/www/html \
+		"$WP_USER" \
+		"$WP_EMAIL" \
+		--user_pass="$WP_PASSWORD" \
+		--role=author
+fi
+
+# フォアグラウンドで待機する
+php-fpm7.4 -F

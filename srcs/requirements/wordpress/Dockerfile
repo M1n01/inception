@@ -1,6 +1,6 @@
 FROM debian:bullseye-slim
 
-RUN apt update && apt install -y php7.4 php7.4-fpm php7.4-mysqli php7.4-phar php7.4-iconv mariadb-client curl && \
+RUN apt update && apt install -y php7.4 php7.4-fpm php7.4-mysqli php7.4-json mariadb-client curl ca-certificates && \
     rm -rf /var/lib/apt/lists/*
 
 ENV WP_PATH=/var/www/html/wordpress
@@ -22,4 +22,4 @@ EXPOSE 9000
 
 WORKDIR /var/www/html/wordpress
 
-ENTRYPOINT ["/usr/local/bin/docker-entrypoint.sh"]
+ENTRYPOINT ["docker-entrypoint.sh"]
