@@ -9,9 +9,7 @@ RUN curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli
     chmod +x wp-cli.phar && \
     mv wp-cli.phar /usr/local/bin/wp && \
     mkdir -p $WP_PATH && \
-    adduser -u 82 -D -S -G www-data www-data && \
-    mkdir -p $WP_PATH && \
-    wp core download --path=$WP_PATH --allow-root && \
+    adduser --uid 82 --disabled-password --system --group www-data && \
     chown -R www-data:www-data /var/www/html/wordpress
 
 COPY ./conf/www.conf /etc/php/7.4/fpm/pool.d/www.conf
