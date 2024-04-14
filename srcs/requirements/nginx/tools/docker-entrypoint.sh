@@ -22,7 +22,7 @@ if [ ! -f "$CERT_DIR/$CERT_NAME.crt" ]; then
     fi
 
 	chmod 600 $CERT_DIR/$CERT_NAME.key
-	chmod 600 $CERT_DIR/$CERT_NAME.crt
+	chmod 644 $CERT_DIR/$CERT_NAME.crt
 fi
 
 exec nginx -g 'daemon off;'
