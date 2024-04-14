@@ -20,6 +20,9 @@ if [ ! -f "$CERT_DIR/$CERT_NAME.crt" ]; then
         echo "自己署名SSL証明書の生成に失敗しました。"
         exit 1
     fi
+
+	chmod 600 $CERT_DIR/$CERT_NAME.key
+	chmod 600 $CERT_DIR/$CERT_NAME.crt
 fi
 
 exec nginx -g 'daemon off;'
