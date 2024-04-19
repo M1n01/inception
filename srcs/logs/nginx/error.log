@@ -16,3 +16,6 @@
 2024/04/19 14:38:31 [error] 7#7: *1 directory index of "/var/www/html/" is forbidden, client: 172.18.0.1, server: localhost, request: "GET / HTTP/1.1", host: "localhost:8080"
 2024/04/19 14:38:33 [error] 7#7: *1 directory index of "/var/www/html/" is forbidden, client: 172.18.0.1, server: localhost, request: "GET / HTTP/1.1", host: "localhost:8080"
 2024/04/19 14:48:20 [error] 7#7: *3 directory index of "/var/www/html/" is forbidden, client: 172.19.0.1, server: localhost, request: "GET / HTTP/1.1", host: "localhost:8080"
+2024/04/19 14:53:36 [error] 7#7: *1 directory index of "/var/www/html/" is forbidden, client: 172.21.0.1, server: localhost, request: "GET / HTTP/1.1", host: "localhost:443"
+2024/04/19 14:53:37 [error] 7#7: *1 open() "/var/www/html/favicon.ico" failed (2: No such file or directory), client: 172.21.0.1, server: localhost, request: "GET /favicon.ico HTTP/1.1", host: "localhost:443", referrer: "http://localhost:443/"
+2024/04/19 15:02:32 [error] 7#7: *3 directory index of "/var/www/html/" is forbidden, client: 172.24.0.1, server: localhost, request: "GET / HTTP/1.1", host: "localhost:443"
