@@ -1,4 +1,4 @@
-version: '3'
+version: '3.1'
 services:
   nginx:
     build: ./requirements/nginx
@@ -7,25 +7,16 @@ services:
     depends_on:
       - wordpress
     volumes:
-      - ./src:/var/www/html
+      - ./requirements/nginx/html:/usr/share/nginx/html
       - ./logs/nginx:/var/log/nginx
+    restart: always
   wordpress:
     build: ./requirements/wordpress
-    depends_on:
-      - mariadb
-    volumes:
-      - ./src:/var/www/html
-      - ./logs/wordpress/php:/var/log/php
-  mariadb:
-    build: ./requirements/mariadb
     ports:
-      - '3306:3306'
-    restart: always
-    environment:
-      MYSQL_ROOT_PASSWORD: example
-      MYSQL_DATABASE: wordpress
-      MYSQL_USER: wordpress
-      MYSQL_PASSWORD: example
+      - "9000"
+    # depends_on:
+    #   - mariadb
     volumes:
-      - ./resources/mariadb:/var/lib/mysql
-      - ./logs/mariadb:/var/log/mysql
+      - ./requirements/wordpress/src:/var/www/html
+      - ./logs/wordpress/php:/var/log/php
+    restart: always
