@@ -15,7 +15,4 @@ RUN apt-get update && apt-get install -y \
 
 COPY ./conf/www.conf /etc/php/7.4/fpm/pool.d/
 
-# RUN docker-php-ext-configure gd --with-freetype --with-jpeg \
-#     && docker-php-ext-install -j$(nproc) gd zip mysqli pdo_mysql
-
 CMD ["php-fpm7.4", "-F"]
