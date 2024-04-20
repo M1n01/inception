@@ -32,3 +32,5 @@
 172.18.0.1 - - [20/Apr/2024:02:23:46 +0000] "\x16\x03\x01\x02,\x01\x00\x02(\x03\x03\x14\xCC\x84\xF1\x89\xFA\xCF\x81\xCD.\xA21" 400 150 "-" "-"
 172.19.0.1 - - [20/Apr/2024:02:27:58 +0000] "GET /var/log/nginx HTTP/1.1" 200 115021 "-" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36"
 172.19.0.1 - - [20/Apr/2024:02:27:58 +0000] "GET /favicon.ico HTTP/1.1" 404 548 "https://localhost/var/log/nginx" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36"
+172.20.0.1 - - [20/Apr/2024:02:33:39 +0000] "GET /var/log/nginx HTTP/1.1" 200 115022 "-" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36"
+172.20.0.1 - - [20/Apr/2024:02:33:47 +0000] "GET /var/log/nginx HTTP/1.1" 200 114939 "-" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36"
