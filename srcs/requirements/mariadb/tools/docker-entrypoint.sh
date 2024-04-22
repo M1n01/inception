@@ -1,6 +1,6 @@
 #!/bin/bash
 
-if [ ! -d "${MYSQL_DATA_PATH}/mysql" ]; then
+if [ ! -d "/var/lib/mysql" ]; then
 	mysql_install_db
 	mysqld --bootstrap << EOF
 		FLUSH PRIVILEGES;

@@ -1,6 +1,6 @@
 FROM debian:bullseye-slim
 
-RUN apt-get update && apt-get install -y \
+RUN apt-get update && apt-get install -y --no-install-recommends \
     php7.4-fpm \
     php7.4-gd \
     php7.4-zip \
@@ -10,9 +10,20 @@ RUN apt-get update && apt-get install -y \
     libjpeg62-turbo-dev \
     libpng-dev \
     libzip-dev \
+    curl \
+    ca-certificates \
     && rm -rf /var/lib/apt/lists/* \
     && mkdir -p /run/php
 
+RUN curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar \
+    && chmod +x wp-cli.phar \
+    && mv wp-cli.phar /usr/local/bin/wp
+
 COPY ./conf/www.conf /etc/php/7.4/fpm/pool.d/
 
-CMD ["php-fpm7.4", "-F"]
+WORKDIR /var/www/html
+
+COPY ./tools/docker-entrypoint.sh /usr/local/bin/
+RUN chmod +x /usr/local/bin/docker-entrypoint.sh
+
+ENTRYPOINT ["docker-entrypoint.sh"]
