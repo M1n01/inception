@@ -7,8 +7,8 @@ services:
     depends_on:
       - wordpress
     volumes:
-      - ./requirements/src:/var/www/html
-      - ./logs/nginx:/var/log/nginx
+      - ./vendor/src:/var/www/html
+      - ./vendor/logs/nginx:/var/log/nginx
     restart: always
     networks:
       - inception-net
@@ -19,8 +19,8 @@ services:
     depends_on:
       - mariadb
     volumes:
-      - ./requirements/src:/var/www/html
-      - ./logs/wordpress/php:/var/log/php
+      - ./vendor/src:/var/www/html
+      - ./vendor/logs/wordpress/php:/var/log/php
     restart: always
     networks:
       - inception-net
@@ -35,8 +35,8 @@ services:
       MYSQL_USER: wordpress
       MYSQL_PASSWORD: wordpress
     volumes:
-      - ./requirements/mariadb/data:/var/lib/mysql
-      - ./logs/mariadb:/var/log/mysql
+      - ./vendor/data:/var/lib/mysql
+      - ./vendor/logs/mariadb:/var/log/mysql
     networks:
       - inception-net
 
