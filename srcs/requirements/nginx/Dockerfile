@@ -11,7 +11,7 @@ COPY ./conf/nginx.conf /etc/nginx/nginx.conf
 COPY ./conf/default.conf /etc/nginx/conf.d/default.conf
 COPY ./.htpasswd /etc/nginx/.htpasswd
 
-RUN openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/nginx/ssl/localhost.key -out /etc/nginx/ssl/localhost.crt -subj "/C=JP/ST=Tokyo/O=42Tokyo/OU=42/CN=localhost"
+RUN openssl req -x509 -nodes -days 365 -newkey rsa:4096 -keyout /etc/nginx/ssl/localhost.key -out /etc/nginx/ssl/localhost.crt -subj "/C=$COUNTRY/ST=$STATE/O=$ORG/CN=$DOMAIN_NAME"
 
 EXPOSE 443
 

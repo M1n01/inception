@@ -12,6 +12,12 @@ services:
     restart: always
     networks:
       - inception-net
+    environment:
+      COUNTRY: ${COUNTRY}
+      STATE: ${STATE}
+      ORG: ${ORG}
+      CERT_NAME: ${CERT_NAME}
+      RSA_KEY_SIZE: ${RSA_KEY_SIZE}
   wordpress:
     build: ./requirements/wordpress
     ports:
