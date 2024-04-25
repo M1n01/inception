@@ -11,4 +11,4 @@ if [ ! -d "/var/lib/mysql" ]; then
 EOF
 fi
 
-exec mysqld --datadir=/var/lib/mysql --user=mysql
+mysqld_safe
