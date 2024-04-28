@@ -22,6 +22,10 @@ services:
       - ./vendor/src:/var/www/html
       - ./vendor/logs/wordpress/php:/var/log/php
     restart: always
+    environment:
+      DB_NAME: $DB_NAME
+      DB_USER: $DB_USER
+      DB_PASSWORD: $DB_PASSWORD
     networks:
       - inception-net
   mariadb:
@@ -30,10 +34,7 @@ services:
       - "3306:3306"
     restart: always
     environment:
-      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
-      MYSQL_DATABASE: ${MYSQL_DATABASE}
-      MYSQL_USER: ${MYSQL_USER}
-      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+      DB_NAME: $DB_NAME
     volumes:
       - ./vendor/data:/var/lib/mysql
       - ./vendor/logs/mariadb:/var/log/mysql

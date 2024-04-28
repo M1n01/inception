@@ -5,7 +5,7 @@ if [ ! -d "/var/lib/mysql/mariadb" ]; then
     mysqld --bootstrap << EOF
         FLUSH PRIVILEGES;
         ALTER USER 'root'@'localhost' IDENTIFIED BY 'root_password';
-        CREATE DATABASE IF NOT EXISTS mariadb;
+        CREATE DATABASE IF NOT EXISTS $DB_NAME;
         CREATE USER 'wordpress'@'%' IDENTIFIED BY 'password';
         GRANT ALL PRIVILEGES ON *.* TO 'wordpress'@'%';
 EOF
