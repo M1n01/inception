@@ -15,6 +15,7 @@ clean:
 	docker compose -f $(COMPOSE_FILE) --env-file $(ENV_FILE) down -v --rmi all --remove-orphans
 
 fclean: clean
+	@rm -rf srcs/vendor
 	docker system prune -f
 
 re: fclean all
