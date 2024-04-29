@@ -4,10 +4,10 @@ if [ ! -d "/var/lib/mysql/mariadb" ]; then
     mysql_install_db --defaults-file=/etc/mysql/mariadb.conf.d/50-server.cnf
     mysqld --bootstrap << EOF
         FLUSH PRIVILEGES;
-        ALTER USER 'root'@'localhost' IDENTIFIED BY 'root_password';
         CREATE DATABASE IF NOT EXISTS $DB_NAME;
-        CREATE USER 'wordpress'@'%' IDENTIFIED BY 'password';
-        GRANT ALL PRIVILEGES ON *.* TO 'wordpress'@'%';
+        CREATE USER '$DB_USER'@'%' IDENTIFIED BY $DB_PASSWORD;
+        ALTER USER 'root'@'%' IDENTIFIED BY $DB_ROOT_PASSWORD;
+        GRANT ALL PRIVILEGES ON ${DB_NAME}.* TO '$DB_USER'@'%' BY '$DB_PASSWORD';
 EOF
 fi
 
