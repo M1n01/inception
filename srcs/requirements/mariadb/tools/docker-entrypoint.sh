@@ -7,7 +7,7 @@ if [ ! -d "/var/lib/mysql/mariadb" ]; then
 
     echo "Running as user: $(whoami)" >> $log_file
 
-    mysql_install_db --defaults-file=/etc/mysql/mariadb.conf.d/50-server.cnf >> $log_file 2>&1
+    mysql_install_db >> $log_file 2>&1
     if [ $? -eq 0 ]; then
         echo "Database installed successfully." >> $log_file
     else
@@ -15,11 +15,10 @@ if [ ! -d "/var/lib/mysql/mariadb" ]; then
     fi
 
     mysqld --bootstrap << EOF >> $log_file 2>&1
+        FLUSH PRIVILEGES;
         CREATE DATABASE IF NOT EXISTS $DB_NAME;
         CREATE USER 'wordpress'@'%' IDENTIFIED BY 'password';
-        ALTER USER 'root'@'%' IDENTIFIED BY '$DB_ROOT_PASSWORD';
         GRANT ALL PRIVILEGES ON $DB_NAME.* TO 'wordpress'@'%';
-        FLUSH PRIVILEGES;
 EOF
     if [ $? -eq 0 ]; then
         echo "Database configured successfully." >> $log_file

@@ -4,6 +4,10 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     mariadb-server \
     && rm -rf /var/lib/apt/lists/*
 
+RUN set -x && \
+    mkdir -p /run/mysqld && \
+    chown -R mysql:mysql /run/mysqld
+
 VOLUME /var/lib/mysql
 
 COPY ./tools/docker-entrypoint.sh /usr/local/bin/
