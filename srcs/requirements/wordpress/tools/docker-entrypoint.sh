@@ -1,11 +1,11 @@
 #!/bin/bash
 
 if ! wp core is-installed --allow-root --path=/var/www/html ; then
-    echo "WordPress is not installed yet. Installing WordPress..."
 
     wp core download --allow-root --path=/var/www/html --locale=ja
 
-    sleep 5
+    echo "...Create wp-config.php"
+
     wp config create \
         --allow-root \
         --path=/var/www/html \
@@ -15,7 +15,8 @@ if ! wp core is-installed --allow-root --path=/var/www/html ; then
         --dbpass=${DB_PASSWORD} \
         --dbhost="mariadb"
 
-    sleep 3
+    echo "...Install WordPress"
+
     wp core install \
         --allow-root \
         --path=/var/www/html \
@@ -34,8 +35,6 @@ if ! wp core is-installed --allow-root --path=/var/www/html ; then
         --user_pass="abcd1234" \
         --role=author
 fi
-
-echo "WordPress is installed. Starting php-fpm7.4..."
 
 # フォアグラウンドで待機する
 php-fpm7.4 -F
