@@ -17,8 +17,8 @@ if [ ! -d "/var/lib/mysql/mariadb" ]; then
     mysqld --bootstrap << EOF >> $log_file 2>&1
         FLUSH PRIVILEGES;
         CREATE DATABASE IF NOT EXISTS $DB_NAME;
-        CREATE USER 'wordpress'@'%' IDENTIFIED BY 'password';
-        GRANT ALL PRIVILEGES ON $DB_NAME.* TO 'wordpress'@'%';
+        CREATE USER '$DB_USER'@'%' IDENTIFIED BY '$DB_PASSWORD';
+        GRANT ALL PRIVILEGES ON $DB_NAME.* TO '$DB_USER'@'%';
 EOF
     if [ $? -eq 0 ]; then
         echo "Database configured successfully." >> $log_file
