@@ -21,20 +21,19 @@ if ! wp core is-installed --allow-root --path=/var/www/html ; then
         --allow-root \
         --path=/var/www/html \
         --locale=ja \
-        --url="https://localhost" \
-        --title="inception" \
-        --admin_user="supervisor" \
-        --admin_email="supervisor@example.com" \
-        --admin_password="abcd1234"
+        --url=${WP_URL} \
+        --title=${WP_TITLE} \
+        --admin_user=${WP_ADMIN_USER} \
+        --admin_email=${WP_ADMIN_EMAIL} \
+        --admin_password=${WP_ADMIN_PASSWORD}
 
     wp user create \
         --allow-root \
         --path=/var/www/html \
-        "user" \
-        "user@sample.com" \
-        --user_pass="abcd1234" \
-        --role=author
+        ${WP_EDITOR_USER} \
+        ${WP_EDITOR_EMAIL} \
+        --user_pass=${WP_EDITOR_PASSWORD}
+        --role=editor \
 fi
 
-# フォアグラウンドで待機する
 php-fpm7.4 -F
