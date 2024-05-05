@@ -9,6 +9,8 @@ services:
       - ./vendor/src:/var/www/html
       - ./vendor/logs/nginx:/var/log/nginx
     restart: always
+    environment:
+      DOMAIN_NAME: $DOMAIN_NAME
     networks:
       - inception-net
   wordpress:
@@ -27,6 +29,14 @@ services:
       DB_ROOT_PASSWORD: $DB_ROOT_PASSWORD
       DB_USER: $DB_USER
       DB_PASSWORD: $DB_PASSWORD
+      WP_URL: $WP_URL
+      WP_TITLE: $WP_TITLE
+      WP_ADMIN_USER: $WP_ADMIN_USER
+      WP_ADMIN_PASSWORD: $WP_ADMIN_PASSWORD
+      WP_ADMIN_EMAIL: $WP_ADMIN_EMAIL
+      WP_EDITOR_USER: $WP_EDITOR_USER
+      WP_EDITOR_PASSWORD: $WP_EDITOR_PASSWORD
+      WP_EDITOR_EMAIL: $WP_EDITOR_EMAIL
     networks:
       - inception-net
   mariadb:
@@ -47,9 +57,9 @@ services:
     healthcheck:
       test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
       start_period: "30s" # 立ち上がるのに、30秒かかりそう
-      retries: 3
-      timeout: "5s"       # 応答が5秒以上かかっても許さない
-      interval: "60s"     # 60秒ごとにチェック
+      retries: 30
+      timeout: "5s"
+      interval: "1s"
 
 networks:
   inception-net:
