@@ -20,20 +20,21 @@ if ! wp core is-installed --allow-root --path=/var/www/html ; then
     wp core install \
         --allow-root \
         --path=/var/www/html \
-        --locale=ja \
-        --url=${WP_URL} \
-        --title=${WP_TITLE} \
-        --admin_user=${WP_ADMIN_USER} \
-        --admin_email=${WP_ADMIN_EMAIL} \
-        --admin_password=${WP_ADMIN_PASSWORD}
+        --url=$WP_URL \
+        --title="$WP_TITLE" \
+        --admin_user=$WP_ADMIN_USER \
+        --admin_password=$WP_ADMIN_PASSWORD \
+        --admin_email=$WP_ADMIN_EMAIL
+
+    echo "...Create Editor User"
 
     wp user create \
         --allow-root \
         --path=/var/www/html \
-        ${WP_EDITOR_USER} \
-        ${WP_EDITOR_EMAIL} \
-        --user_pass=${WP_EDITOR_PASSWORD}
-        --role=editor \
+        "$WP_EDITOR_USER" \
+        "$WP_EDITOR_EMAIL" \
+        --user_pass=${WP_EDITOR_PASSWORD} \
+        --role=editor
 fi
 
 php-fpm7.4 -F
