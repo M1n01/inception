@@ -10,7 +10,7 @@ RUN mkdir -p /var/www/html && chown -R www-data:www-data /var/www/html &&\
 COPY ./conf/nginx.conf /etc/nginx/
 COPY ./conf/default.conf /etc/nginx/conf.d/
 
-RUN openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/nginx/ssl/localhost.key -out /etc/nginx/ssl/localhost.crt -subj "/C=JP/ST=Tokyo/O=42Tokyo/OU=42/CN=localhost"
+RUN openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/nginx/ssl/minabe.42.fr.key -out /etc/nginx/ssl/minabe.42.fr.crt -subj "/C=JP/ST=Tokyo/O=42Tokyo/OU=42/CN=minabe.42.fr"
 
 EXPOSE 443
 CMD ["nginx", "-g", "daemon off;"]
