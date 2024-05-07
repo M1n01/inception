@@ -6,8 +6,8 @@ services:
     depends_on:
       - wordpress
     volumes:
-      - ./vendor/src:/var/www/html
-      - ./vendor/logs/nginx:/var/log/nginx
+      - nginx_data:/var/www/html
+      - nginx_logs:/var/log/nginx
     restart: always
     environment:
       DOMAIN_NAME: $DOMAIN_NAME
@@ -21,8 +21,8 @@ services:
       mariadb:
         condition: service_healthy
     volumes:
-      - ./vendor/src:/var/www/html
-      - ./vendor/logs/wordpress/php:/var/log/php
+      - wp_data:/var/www/html
+      - wp_logs:/var/log/php
     restart: always
     environment:
       DB_NAME: $DB_NAME
@@ -50,8 +50,8 @@ services:
       DB_USER: $DB_USER
       DB_PASSWORD: $DB_PASSWORD
     volumes:
-      - ./vendor/data:/var/lib/mysql
-      - ./vendor/logs/mariadb:/var/log/mysql
+      - db_data:/var/lib/mysql
+      - db_logs:/var/log/mysql
     networks:
       - inception-net
     healthcheck:
@@ -63,3 +63,41 @@ services:
 
 networks:
   inception-net:
+
+volume:
+  nginx_data:
+    driver: local
+    driver_opts:
+      o: bind
+      device: /home/minabe/data/nginx
+      type: anything_is_ok
+  nginx_logs:
+    driver: local
+    driver_opts:
+      o: bind
+      device: /home/minabe/data/nginx/logs
+      type: anything_is_ok
+  wp_data:
+    driver: local
+    driver_opts:
+      o: bind
+      device: /home/minabe/data/wordpress
+      type: anything_is_ok
+  wp_logs:
+    driver: local
+    driver_opts:
+      o: bind
+      device: /home/minabe/data/wordpress/logs
+      type: anything_is_ok
+  db_data:
+    driver: local
+    driver_opts:
+      o: bind
+      device: /home/minabe/data/mariadb
+      type: anything_is_ok
+  db_logs:
+    driver: local
+    driver_opts:
+      o: bind
+      device: /home/minabe/data/mariadb/logs
+      type: anything_is_ok
