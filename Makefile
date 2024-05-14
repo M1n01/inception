@@ -3,7 +3,7 @@ COMPOSE_FILE := srcs/docker-compose.yml
 ENV_FILE := srcs/.env
 
 WP_VOLUME_DIR := /home/minabe/data/wordpress/logs
-DB_VOLUME_DIR := /home/minabe/data/mysql/logs
+DB_VOLUME_DIR := /home/minabe/data/mariadb/logs
 NGINX_VOLUME_DIR := /home/minabe/data/nginx/logs
 
 # Targets
