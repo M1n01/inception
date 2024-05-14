@@ -10,7 +10,7 @@ NGINX_VOLUME_DIR := /home/minabe/data/nginx/logs
 all: up
 
 up:
-	mkdir -p $(WP_VOLUME_DIR) $(DB_VOLUME_DIR) ${NGINX_VOLUME_DIR}
+	sudo mkdir -p $(WP_VOLUME_DIR) $(DB_VOLUME_DIR) ${NGINX_VOLUME_DIR}
 	docker compose -f $(COMPOSE_FILE) --env-file $(ENV_FILE) up -d --build
 
 clean:

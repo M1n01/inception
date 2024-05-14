@@ -64,7 +64,7 @@ services:
 networks:
   inception-net:
 
-volume:
+volumes:
   nginx_data:
     driver: local
     driver_opts:
