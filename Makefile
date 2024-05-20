@@ -2,15 +2,18 @@
 COMPOSE_FILE := srcs/docker-compose.yml
 ENV_FILE := srcs/.env
 
-WP_VOLUME_DIR := /home/minabe/data/wordpress/logs
-DB_VOLUME_DIR := /home/minabe/data/mariadb/logs
-NGINX_VOLUME_DIR := /home/minabe/data/nginx/logs
+# Volume directories
+VOLUME_PATH := ./srcs/requirements/data
+
+WP_LOGS_DIR := $(VOLUME_PATH)/wordpress/logs
+DB_LOGS_DIR := $(VOLUME_PATH)/mariadb/logs
+NGINX_LOGS_DIR := $(VOLUME_PATH)/nginx/logs
 
 # Targets
 all: up
 
 up:
-	sudo mkdir -p $(WP_VOLUME_DIR) $(DB_VOLUME_DIR) ${NGINX_VOLUME_DIR}
+	sudo mkdir -p $(WP_LOGS_DIR) $(DB_LOGS_DIR) ${NGINX_LOGS_DIR}
 	docker compose -f $(COMPOSE_FILE) --env-file $(ENV_FILE) up -d --build
 
 clean:

@@ -69,35 +69,35 @@ volumes:
     driver: local
     driver_opts:
       o: bind
-      device: /home/minabe/data/nginx
+      device: $NGINX_VOLUME_PATH
       type: anything_is_ok
   nginx_logs:
     driver: local
     driver_opts:
       o: bind
-      device: /home/minabe/data/nginx/logs
+      device: $NGINX_LOGS_PATH
       type: anything_is_ok
   wp_data:
     driver: local
     driver_opts:
       o: bind
-      device: /home/minabe/data/wordpress
+      device: $WP_VOLUME_PATH
       type: anything_is_ok
   wp_logs:
     driver: local
     driver_opts:
       o: bind
-      device: /home/minabe/data/wordpress/logs
+      device: $WP_LOGS_PATH
       type: anything_is_ok
   db_data:
     driver: local
     driver_opts:
       o: bind
-      device: /home/minabe/data/mariadb
+      device: $DB_VOLUME_PATH
       type: anything_is_ok
   db_logs:
     driver: local
     driver_opts:
       o: bind
-      device: /home/minabe/data/mariadb/logs
+      device: $DB_LOGS_PATH
       type: anything_is_ok
