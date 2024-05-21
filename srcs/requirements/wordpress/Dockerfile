@@ -1,11 +1,11 @@
 FROM debian:bullseye-slim
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
-    php7.4-fpm \
-    php7.4-gd \
-    php7.4-zip \
-    php7.4-mysqli \
-    php7.4-mysql \
+    php81-fpm \
+    php81-gd \
+    php81-zip \
+    php81-mysqli \
+    php81-mysql \
     libfreetype6-dev \
     libjpeg62-turbo-dev \
     libpng-dev \
