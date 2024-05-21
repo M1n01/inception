@@ -1,11 +1,11 @@
 FROM debian:bullseye-slim
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
-    php81-fpm \
-    php81-gd \
-    php81-zip \
-    php81-mysqli \
-    php81-mysql \
+    php8.1-fpm \
+    php8.1-gd \
+    php8.1-zip \
+    php8.1-mysqli \
+    php8.1-mysql \
     libfreetype6-dev \
     libjpeg62-turbo-dev \
     libpng-dev \
@@ -19,7 +19,7 @@ RUN curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli
     && chmod +x wp-cli.phar \
     && mv wp-cli.phar /usr/local/bin/wp
 
-COPY ./conf/www.conf /etc/php/7.4/fpm/pool.d/
+COPY ./conf/www.conf /etc/php/8.1/fpm/pool.d/
 
 WORKDIR /var/www/html
 
