@@ -3,7 +3,7 @@ COMPOSE_FILE := srcs/docker-compose.yml
 ENV_FILE := srcs/.env
 
 # Volume directories
-VOLUME_PATH := ./srcs/requirements/data
+VOLUME_PATH := /home/minabe/data
 
 WP_LOGS_DIR := $(VOLUME_PATH)/wordpress/logs
 DB_LOGS_DIR := $(VOLUME_PATH)/mariadb/logs
