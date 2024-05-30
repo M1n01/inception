@@ -20,6 +20,7 @@ RUN curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli
     && mv wp-cli.phar /usr/local/bin/wp \
     && adduser -u 82 -D -S -G www-data www-data \
     && mkdir -p /var/www/html \
+    && wp core download --allow-root --path=/var/www/html --locale=ja \
     && chown -R www-data:www-data /var/www/html
 
 COPY ./conf/www.conf /etc/php/7.4/fpm/pool.d/
