@@ -2,8 +2,6 @@
 
 if ! wp core is-installed --allow-root --path=/var/www/html ; then
 
-    wp core download --allow-root --path=/var/www/html --locale=ja
-
     echo "...Create wp-config.php"
 
     wp config create \
