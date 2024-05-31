@@ -1,40 +1,32 @@
 #!/bin/bash
 
-if ! wp core is-installed --allow-root --path=/var/www/html ; then
+echo "...Create wp-config.php"
 
-    wp core download --allow-root --path=/var/www/html --locale=ja
+wp config create \
+    --path=/var/www/html \
+    --locale=ja \
+    --dbname=${DB_NAME} \
+    --dbuser=${DB_USER} \
+    --dbpass=${DB_PASSWORD} \
+    --dbhost="mariadb"
 
-    echo "...Create wp-config.php"
+echo "...Install WordPress"
 
-    wp config create \
-        --allow-root \
-        --path=/var/www/html \
-        --locale=ja \
-        --dbname=${DB_NAME} \
-        --dbuser=${DB_USER} \
-        --dbpass=${DB_PASSWORD} \
-        --dbhost="mariadb"
+wp core install \
+    --path=/var/www/html \
+    --url=$WP_URL \
+    --title="$WP_TITLE" \
+    --admin_user=$WP_ADMIN_USER \
+    --admin_password=$WP_ADMIN_PASSWORD \
+    --admin_email=$WP_ADMIN_EMAIL
 
-    echo "...Install WordPress"
+echo "...Create Editor User"
 
-    wp core install \
-        --allow-root \
-        --path=/var/www/html \
-        --url=$WP_URL \
-        --title="$WP_TITLE" \
-        --admin_user=$WP_ADMIN_USER \
-        --admin_password=$WP_ADMIN_PASSWORD \
-        --admin_email=$WP_ADMIN_EMAIL
-
-    echo "...Create Editor User"
-
-    wp user create \
-        --allow-root \
-        --path=/var/www/html \
-        "$WP_EDITOR_USER" \
-        "$WP_EDITOR_EMAIL" \
-        --user_pass=${WP_EDITOR_PASSWORD} \
-        --role=editor
-fi
+wp user create \
+    --path=/var/www/html \
+    "$WP_EDITOR_USER" \
+    "$WP_EDITOR_EMAIL" \
+    --user_pass=${WP_EDITOR_PASSWORD} \
+    --role=editor
 
 php-fpm7.4 -F
