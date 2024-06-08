@@ -8,13 +8,13 @@ if ! wp core is-installed --allow-root --path=/var/www/html; then
     wp core download --allow-root --path=/var/www/html --locale=ja
 
     echo "Creating wp-config.php..."
-    wp config create --allow-root --path=/var/www/html --dbname=$DB_NAME --dbuser=$DB_USER --dbpass=$DB_PASSWORD --dbhost=mariadb
+    wp config create --path=/var/www/html --dbname=$DB_NAME --dbuser=$DB_USER --dbpass=$DB_PASSWORD --dbhost=mariadb
 
     echo "Installing WordPress..."
-    wp core install --allow-root --path=/var/www/html --url=$WP_URL --title=$WP_TITLE --admin_user=$WP_ADMIN_USER --admin_password=$WP_ADMIN_PASSWORD --admin_email=$WP_ADMIN_EMAIL
+    wp core install --path=/var/www/html --url=$WP_URL --title=$WP_TITLE --admin_user=$WP_ADMIN_USER --admin_password=$WP_ADMIN_PASSWORD --admin_email=$WP_ADMIN_EMAIL
 
     echo "Creating Editor User..."
-    wp user create --allow-root --path=/var/www/html $WP_EDITOR_USER $WP_EDITOR_EMAIL --user_pass=$WP_EDITOR_PASSWORD --role=author
+    wp user create $WP_EDITOR_USER $WP_EDITOR_EMAIL --path=/var/www/html --user_pass=$WP_EDITOR_PASSWORD --role=author
 fi
 
 # Start php-fpm
