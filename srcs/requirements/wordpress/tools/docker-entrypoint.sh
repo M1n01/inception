@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# Set ownership of the html directory
+chown -R www-data:www-data /var/www/html
+
 # Check if wp-config.php exists, if not create it and install WordPress
 if ! su -s /bin/bash www-data -c "wp core is-installed --path=/var/www/html"; then
     echo "Downloading WordPress core files..."
