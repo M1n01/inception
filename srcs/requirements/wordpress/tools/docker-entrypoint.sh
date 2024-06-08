@@ -3,6 +3,11 @@
 # Set ownership of the html directory
 chown -R www-data:www-data /var/www/html
 
+# Create cache directory for wp-cli
+mkdir -p /var/www/.wp-cli/cache
+chown -R www-data:www-data /var/www/.wp-cli
+chmod -R 755 /var/www/.wp-cli
+
 # Check if wp-config.php exists, if not create it and install WordPress
 if ! su -s /bin/bash www-data -c "wp core is-installed --path=/var/www/html"; then
     echo "Downloading WordPress core files..."
