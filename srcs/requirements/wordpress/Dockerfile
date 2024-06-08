@@ -23,4 +23,7 @@ COPY ./tools/docker-entrypoint.sh /usr/local/bin/
 RUN chmod +x /usr/local/bin/docker-entrypoint.sh
 
 EXPOSE 9000
+
+WORKDIR /var/www/html
+
 ENTRYPOINT ["docker-entrypoint.sh"]
