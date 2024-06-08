@@ -6,7 +6,7 @@ services:
     depends_on:
       - wordpress
     volumes:
-      - nginx_data:/var/www/html
+      - wp_data:/var/www/html:ro
       - nginx_logs:/var/log/nginx
     restart: always
     environment:
@@ -65,12 +65,6 @@ networks:
   inception-net:
 
 volumes:
-  nginx_data:
-    driver: local
-    driver_opts:
-      o: bind
-      device: $NGINX_VOLUME_PATH
-      type: anything_is_ok
   nginx_logs:
     driver: local
     driver_opts:
