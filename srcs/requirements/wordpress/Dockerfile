@@ -10,7 +10,8 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     php7.4-phar \
     php7.4-iconv \
     php7.4-mysqli\
-    && rm -rf /var/lib/apt/lists/*
+    && rm -rf /var/lib/apt/lists/* \
+    && mkdir -p /run/php
 
 RUN curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar \
     && chmod +x wp-cli.phar \
