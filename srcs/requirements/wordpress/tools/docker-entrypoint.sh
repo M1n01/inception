@@ -1,5 +1,7 @@
 #!/bin/bash
 
+chown -R www-data:www-data /run/php /var/www/html /var/www/.wp-cli
+
 # Check if wp-config.php exists, if not create it and install WordPress
 if ! su -s /bin/bash www-data -c "wp core is-installed --path=/var/www/html"; then
     echo "Downloading WordPress core files..."
