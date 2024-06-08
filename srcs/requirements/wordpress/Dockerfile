@@ -1,24 +1,19 @@
 FROM debian:bullseye-slim
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
-    php7.4-fpm \
-    php7.4-gd \
-    php7.4-zip \
-    php7.4-mysqli \
-    php7.4-mysql \
-    libfreetype6-dev \
-    libjpeg62-turbo-dev \
-    libpng-dev \
-    libzip-dev \
     curl \
     ca-certificates \
-    && rm -rf /var/lib/apt/lists/* \
-    && mkdir -p /run/php
+    mariadb-client \
+    php7.4 \
+    php7.4-fpm \
+    php7.4-json \
+    php7.4-mysqli; \
+    rm -rf /var/lib/apt/lists/*
 
-RUN curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar \
-    && chmod +x wp-cli.phar \
-    && mv wp-cli.phar /usr/local/bin/wp \
-    && mkdir -p /var/www/html
+RUN curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar; \
+    chmod +x wp-cli.phar; \
+    mv wp-cli.phar /usr/local/bin/wp; \
+    mkdir -p /var/www/html
 
 COPY ./conf/www.conf /etc/php/7.4/fpm/pool.d/
 
