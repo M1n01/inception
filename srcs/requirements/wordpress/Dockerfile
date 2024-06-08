@@ -7,6 +7,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     php7.4 \
     php7.4-fpm \
     php7.4-json \
+    php7.4-phar \
     php7.4-iconv \
     php7.4-mysqli \
     && rm -rf /var/lib/apt/lists/* \
