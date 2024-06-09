@@ -4,8 +4,9 @@ chown -R www-data:www-data /run/php /var/www/html /var/www/.wp-cli
 
 # Check if wp-config.php exists, if not create it and install WordPress
 if ! wp core is-installed --allow-root --path=/var/www/html; then
+
     echo "Downloading WordPress core files..."
-    wp core download --allow-root --path=/var/www/html --locale=ja
+    sudo -u www-data -i -- wp core download --path=/var/www/html --locale=ja
 
     echo "Creating wp-config.php..."
     wp config create --path=/var/www/html --dbname=$DB_NAME --dbuser=$DB_USER --dbpass=$DB_PASSWORD --dbhost=mariadb
