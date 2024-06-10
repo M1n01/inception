@@ -19,4 +19,4 @@ if ! wp core is-installed --allow-root --path=/var/www/html; then
 fi
 
 # Start php-fpm
-php-fpm7.4 -F
+php7.4-fpm -F
