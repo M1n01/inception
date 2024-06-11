@@ -3,9 +3,9 @@ FROM debian:bullseye-slim
 RUN apt-get update && apt-get install -y nginx openssl --no-install-recommends &&\
     apt-get clean && rm -rf /var/lib/apt/lists/*
 
-RUN mkdir -p /var/www/html && chown -R www-data:www-data /var/www/html &&\
-    mkdir -p /run/nginx && chown -R www-data:www-data /run/nginx &&\
-    mkdir -p /etc/nginx/ssl && chown -R www-data:www-data /etc/nginx/ssl
+RUN mkdir -p /var/www/html && chown -R nginx:nginx /var/www/html &&\
+    mkdir -p /run/nginx && chown -R nginx:nginx /run/nginx &&\
+    mkdir -p /etc/nginx/ssl && chown -R nginx:nginx /etc/nginx/ssl
 
 COPY ./conf/nginx.conf /etc/nginx/
 COPY ./conf/default.conf /etc/nginx/conf.d/
