@@ -12,12 +12,7 @@ if ! wp core is-installed --allow-root --path=/var/www/html; then
     sudo -u nginx wp config create --path=/var/www/html --dbname=$DB_NAME --dbuser=$DB_USER --dbpass=$DB_PASSWORD --dbhost=mariadb
 
     echo "Installing WordPress..."
-    echo $WP_URL
-    echo $WP_TITLE
-    echo $WP_ADMIN_USER
-    echo $WP_ADMIN_PASSWORD
-    echo $WP_ADMIN_EMAIL
-    sudo -u nginx wp core install --path=/var/www/html --url=$WP_URL --title=$WP_TITLE --admin_user=$WP_ADMIN_USER --admin_password=$WP_ADMIN_PASSWORD --admin_email=$WP_ADMIN_EMAIL
+    sudo -u nginx wp core install --path=/var/www/html --url=$WP_URL --title="WP_TITLE" --admin_user=$WP_ADMIN_USER --admin_password=$WP_ADMIN_PASSWORD --admin_email=$WP_ADMIN_EMAIL
 
     echo "Creating Editor User..."
     sudo -u nginx wp user create $WP_EDITOR_USER $WP_EDITOR_EMAIL --path=/var/www/html --user_pass=$WP_EDITOR_PASSWORD --role=author
