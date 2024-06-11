@@ -3,9 +3,11 @@ FROM debian:bullseye-slim
 RUN apt-get update && apt-get install -y nginx openssl --no-install-recommends &&\
     apt-get clean && rm -rf /var/lib/apt/lists/*
 
-RUN mkdir -p /var/www/html && chown -R nginx:nginx /var/www/html &&\
-    mkdir -p /run/nginx && chown -R nginx:nginx /run/nginx &&\
-    mkdir -p /etc/nginx/ssl && chown -R nginx:nginx /etc/nginx/ssl
+RUN useradd -m -d /var/www/html -s /bin/bash nginx && \
+    usermod -aG nginx nginx
+
+RUN mkdir -p /var/www/html /run/nginx /etc/nginx/ssl && \
+    chown -R nginx:nginx /var/www/html /run/nginx /etc/nginx/ssl
 
 COPY ./conf/nginx.conf /etc/nginx/
 COPY ./conf/default.conf /etc/nginx/conf.d/
